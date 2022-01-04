@@ -1,6 +1,6 @@
 Generate Garmin-compatible FIT Workout files from a simple JSON workout structure.
 
-Example JSON:
+Example JSON for the `/api/getfitfromjson` endpoint:
 
 ```json
 {
