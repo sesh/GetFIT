@@ -16,7 +16,8 @@ namespace GetFIT
     public class FitRequestStep
     {
         public string intensity { get; set; }
-        public int duration { get; set; }
+        public Nullable<int> duration { get; set; }
+        public Nullable<int> distance { get; set; }
         public Nullable<float> targetSpeedLow { get; set; }
         public Nullable<float> targetSpeedHigh { get; set; }
     }
@@ -78,9 +79,13 @@ namespace GetFIT
                 var workoutStepMesg = new WorkoutStepMesg();
                 workoutStepMesg.SetMessageIndex(stepIndex);
 
-                // TODO: Switching for duration / distance
-                workoutStepMesg.SetDurationType(WktStepDuration.Time);    // seconds
-                workoutStepMesg.SetDurationTime(step.duration);
+                if (step.duration != null) {
+                    workoutStepMesg.SetDurationType(WktStepDuration.Time);    // seconds
+                    workoutStepMesg.SetDurationTime(step.duration);
+                } else {
+                    workoutStepMesg.SetDurationType(WktStepDuration.Distance);
+                    workoutStepMesg.SetDurationDistance(step.distance);
+                }
 
                 // switching for the different intensities
                 if (step.intensity == "warmup") {
